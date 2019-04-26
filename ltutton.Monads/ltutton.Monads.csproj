@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <Authors>Laurie Tutton</Authors>
+    <RepositoryUrl>https://github.com/ltutton/Monads</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ltutton/Monads</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/ltutton/Monads/blob/master/license.md</PackageLicenseUrl>
+    <Copyright>2019 Laurie Tutton</Copyright>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
 </Project>
