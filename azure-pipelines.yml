@@ -6,6 +6,7 @@
 variables:
   Major: '1'
   Minor: '0'
+  Patch: 0
 
 trigger:
 - master
@@ -40,4 +41,4 @@ steps:
     versioningScheme: 'byPrereleaseNumber'
     majorVersion: '$(Major)'
     minorVersion: '$(Minor)'
-    patchVersion: '$(rev:.r)'
+    patchVersion: '$(Patch)'
