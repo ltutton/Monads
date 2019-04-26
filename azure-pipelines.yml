@@ -3,7 +3,7 @@ variables:
   Major: '1'
   Minor: '0'
   Patch: 0
-  BuildConfiguration: 'release'
+  BuildConfiguration: 'Release'
 
 trigger:
 - master
