@@ -29,7 +29,7 @@ steps:
   displayName: 'Test'
   condition: succeeded()
   inputs:
-    command: 'Test'
+    command: 'test'
 
 - task: DotNetCoreCLI@2
   displayName: 'Pack'
