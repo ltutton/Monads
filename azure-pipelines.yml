@@ -42,3 +42,7 @@ steps:
     majorVersion: '$(Major)'
     minorVersion: '$(Minor)'
     patchVersion: '$(Patch)'
+
+- task: PublishPipelineArtifact@0
+  condition: succeeded()
+  inputs:
