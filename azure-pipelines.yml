@@ -3,6 +3,10 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  Major: '1'
+  Minor: '0'
+
 trigger:
 - master
 
@@ -15,16 +19,25 @@ steps:
   inputs:
     packageType: 'sdk'
     version: 2.1.505
+
 - task: DotNetCoreCLI@2
   displayName: 'NuGet Restore'
+  condition: succeeded()
   inputs:
     command: 'restore'
+
 - task: DotNetCoreCLI@2
   displayName: 'Build'
+  condition: succeeded()
   inputs:
     command: 'build'
+
 - task: DotNetCoreCLI@2
   displayName: 'Nuget Pack'
+  condition: succeeded()
   inputs:
     command: 'pack'
-    versioningScheme: 'byBuildNumber'
+    versioningScheme: 'byPrereleaseNumber'
+    majorVersion: '$(Major)'
+    minorVersion: '$(Minor)'
+    patchVersion: '$(rev:.r)'
