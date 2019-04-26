@@ -46,3 +46,4 @@ steps:
 - task: PublishPipelineArtifact@0
   condition: succeeded()
   inputs:
+    targetPath:
