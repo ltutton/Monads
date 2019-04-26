@@ -10,10 +10,21 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: UseDotNet@2
+  displayName: 'Install tools'
+  inputs:
+    packageType: 'sdk'
+    version: 2.1.505
+- task: DotNetCoreCLI@2
+  displayName: 'NuGet Restore'
+  inputs:
+    command: 'restore'
+- task: DotNetCoreCLI@2
+  displayName: 'Build'
+  inputs:
+    command: 'build'
+- task: DotNetCoreCLI@2
+  displayName: 'Nuget Pack'
+  inputs:
+    command: 'pack'
+    versioningScheme: 'byBuildNumber'
