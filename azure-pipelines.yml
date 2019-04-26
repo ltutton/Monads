@@ -19,26 +19,24 @@ steps:
     version: 2.1.505
 
 - task: DotNetCoreCLI@2
-  displayName: 'Restore'
-  condition: succeeded()
-  inputs:
-    command: restore
-
-- task: DotNetCoreCLI@2
   displayName: 'Build'
   condition: succeeded()
   inputs:
     command: 'build'
-    configuration: '$(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Nuget Pack'
+  displayName: 'Test'
+  condition: succeeded()
+  inputs:
+    command: 'Test'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack'
   condition: succeeded()
   inputs:
     command: 'pack'
     nobuild: true
     packagesToPack: '**/*.csproj'
-    configuration: '$(BuildConfiguration)'
     versioningScheme: 'byPrereleaseNumber'
     majorVersion: '$(Major)'
     minorVersion: '$(Minor)'
