@@ -1,12 +1,9 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 variables:
   Major: '1'
   Minor: '0'
   Patch: 0
+  BuildConfiguration: 'release'
 
 trigger:
 - master
@@ -22,12 +19,6 @@ steps:
     version: 2.1.505
 
 - task: DotNetCoreCLI@2
-  displayName: 'NuGet Restore'
-  condition: succeeded()
-  inputs:
-    command: 'restore'
-
-- task: DotNetCoreCLI@2
   displayName: 'Build'
   condition: succeeded()
   inputs:
@@ -38,6 +29,8 @@ steps:
   condition: succeeded()
   inputs:
     command: 'pack'
+    nobuild: true
+    packagesToPack: '**/*.csproj'
     versioningScheme: 'byPrereleaseNumber'
     majorVersion: '$(Major)'
     minorVersion: '$(Minor)'
@@ -46,4 +39,4 @@ steps:
 - task: PublishPipelineArtifact@0
   condition: succeeded()
   inputs:
-    targetPath:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
