@@ -23,6 +23,7 @@ steps:
   condition: succeeded()
   inputs:
     command: 'build'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Test'
