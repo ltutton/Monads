@@ -54,7 +54,7 @@ steps:
     nobuild: true
     packagesToPack: '**/*.csproj'
     versioningScheme: 'byEnvVar'
-    versionEnvVar: '$(PackageVersion)'
+    versionEnvVar: 'PackageVersion'
     packDirectory: '$(ArtifactStagingDirectory)/Release'
 
 
