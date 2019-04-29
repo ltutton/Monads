@@ -6,7 +6,7 @@
 
         public readonly bool HasValue;
 
-        public Maybe(T value, bool hasValue)
+        internal Maybe(T value, bool hasValue)
         {
             Value = value;
             HasValue = hasValue;
