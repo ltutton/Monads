@@ -1,7 +1,9 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+
+variables:
+  Major: '1'
+  Minor: '0'
+  Patch: 0
+  BuildConfiguration: 'Release'
 
 trigger:
 - master
@@ -10,10 +12,38 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: UseDotNet@2
+  displayName: 'Install tools'
+  inputs:
+    packageType: 'sdk'
+    version: 2.1.505
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: DotNetCoreCLI@2
+  displayName: 'Build'
+  condition: succeeded()
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Test'
+  condition: succeeded()
+  inputs:
+    command: 'test'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack'
+  condition: succeeded()
+  inputs:
+    command: 'pack'
+    nobuild: true
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'byPrereleaseNumber'
+    majorVersion: '$(Major)'
+    minorVersion: '$(Minor)'
+    patchVersion: '$(Patch)'
+
+- task: PublishPipelineArtifact@0
+  condition: succeeded()
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
