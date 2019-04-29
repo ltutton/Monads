@@ -6,7 +6,10 @@ variables:
   BuildConfiguration: 'Release'
 
 trigger:
-- master
+  branches:
+    include:
+      - master
+      - dev
 
 pool:
   vmImage: 'Ubuntu-16.04'
@@ -44,6 +47,6 @@ steps:
     patchVersion: '$(Patch)'
 
 - task: PublishPipelineArtifact@0
-  condition: succeeded()
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)'
