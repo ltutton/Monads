@@ -44,7 +44,7 @@ steps:
     majorVersion: '$(Major)'
     minorVersion: '$(Minor)'
     patchVersion: '$(Patch)'
-    packDirectory: '$(ArtifactStagingDirectory)/Prerelease'
+    packDirectory: '$(ArtifactStagingDirectory)/PreRelease'
 
 - task: DotNetCoreCLI@2
   displayName: 'Pack Release'
