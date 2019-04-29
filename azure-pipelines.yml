@@ -45,6 +45,6 @@ steps:
     patchVersion: '$(Patch)'
 
 - task: PublishPipelineArtifact@0
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: succeeded()
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)'
