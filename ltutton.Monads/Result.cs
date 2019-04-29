@@ -8,7 +8,7 @@ namespace ltutton.Monads
 
         public readonly bool Success;
         
-        public Result(string message, bool success)
+        internal Result(string message, bool success)
         {
             Message = message;
             Success = success;
@@ -27,6 +27,11 @@ namespace ltutton.Monads
         public static Result<T> Fail<T>(string message, T value)
         {
             return new Result<T>(message, false, value);
+        }
+
+        public static Result<T> Fail<T>(string message)
+        {
+            return new Result<T>(message, false, default);
         }
 
         public static Result Ok()
@@ -94,7 +99,7 @@ namespace ltutton.Monads
         public readonly T Value;
         public readonly bool Success;
 
-        public  Result(string message, bool success, T value)
+        internal Result(string message, bool success, T value)
         {
             Message = message;
             Value = value;
