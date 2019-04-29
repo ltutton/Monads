@@ -61,4 +61,4 @@ steps:
 - task: PublishPipelineArtifact@0
   condition: succeeded()
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
+    targetPath: '$(Build.ArtifactStagingDirectory)/**'
