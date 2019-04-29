@@ -2,8 +2,9 @@
 variables:
   Major: '1'
   Minor: '0'
-  Patch: 0
+  Patch: '0'
   BuildConfiguration: 'Release'
+  PackageVersion: '$(Major).$(Minor).$(Patch)'
 
 trigger:
 - master
@@ -33,7 +34,7 @@ steps:
     command: 'test'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Pack'
+  displayName: 'Pack Prerelease'
   condition: succeeded()
   inputs:
     command: 'pack'
@@ -43,8 +44,21 @@ steps:
     majorVersion: '$(Major)'
     minorVersion: '$(Minor)'
     patchVersion: '$(Patch)'
+    packDirectory: '$(ArtifactStagingDirectory)/Prerelease'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack Release'
+  condition: succeeded()
+  inputs:
+    command: 'pack'
+    nobuild: true
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: '$(PackageVersion)'
+    packDirectory: '$(ArtifactStagingDirectory)/Release'
+
 
 - task: PublishPipelineArtifact@0
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: succeeded()
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)'
